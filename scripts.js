@@ -129,15 +129,20 @@ function showMore() {
 
 const slides = [
 
-    "images/profile.jpg",
+    "images/family.jpeg",
+    "images/friends.jpg",
+    "images/netball1.JPG",
+    "images/netball2.jpg",
+    "images/netball3.jpg",
     "images/photo1.jpg",
-    "images/photo2.jpg",
-    "images/photo3.jpg",
-    "images/photo4.jpg"
+    "images/profile.jpg.jpg",
+    "images/sport.jpeg",
+    "images/support.jpeg"
 
 ];
 
 let currentSlide = 0;
+let slideshowTimer = null;
 
 
 function showSlide(index) {
@@ -187,6 +192,7 @@ function showSlide(index) {
 
 function nextSlide() {
 
+    stopSlideshow();
     showSlide(currentSlide + 1);
 
 }
@@ -194,9 +200,34 @@ function nextSlide() {
 
 function previousSlide() {
 
+    stopSlideshow();
     showSlide(currentSlide - 1);
 
 }
+
+
+function stopSlideshow() {
+
+    if (slideshowTimer !== null) {
+
+        clearInterval(slideshowTimer);
+        slideshowTimer = null;
+
+    }
+
+}
+
+
+document.querySelectorAll(".dot").forEach(function (dot) {
+
+    dot.addEventListener("click", function () {
+
+        stopSlideshow();
+        showSlide(Number(dot.dataset.slide));
+
+    });
+
+});
 
 
 /* ---------- AUTOMATIC SLIDESHOW ---------- */
@@ -205,7 +236,7 @@ if (document.getElementById("slideImage")) {
 
     showSlide(0);
 
-    setInterval(function () {
+    slideshowTimer = setInterval(function () {
 
         nextSlide();
 
